@@ -12,7 +12,9 @@ class FinancialGoalController extends Controller
      */
 public function index()
 {
-    return view('financial-goals.index');
+    $goals = FinancialGoal::all();
+
+    return view('financial-goals.index', compact('goals'));
 }
 
     /**
@@ -26,10 +28,18 @@ public function index()
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+   public function store(Request $request)
+{
+    FinancialGoal::create([
+        'user_id' => auth()->id(),
+        'name' => $request->name,
+        'target_amount' => $request->target_amount,
+        'current_amount' => $request->current_amount,
+        'deadline' => $request->deadline
+    ]);
+
+    return redirect()->route('financial-goals.index');
+}
 
     /**
      * Display the specified resource.
@@ -59,7 +69,9 @@ public function index()
      * Remove the specified resource from storage.
      */
     public function destroy(FinancialGoal $financialGoal)
-    {
-        //
-    }
+{
+    $financialGoal->delete();
+
+    return redirect()->route('financial-goals.index');
+}
 }

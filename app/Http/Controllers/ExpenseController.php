@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -12,7 +13,9 @@ class ExpenseController extends Controller
      */
 public function index()
 {
-    return view('expenses.index');
+    $expenses = Expense::all();
+
+    return view('expenses.index', compact('expenses'));
 }
 
     /**
@@ -27,9 +30,25 @@ public function index()
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    if (Category::count() == 0) {
+
+        return redirect()
+            ->route('categories.index')
+            ->with('error', 'First create a category.');
+
     }
+
+    Expense::create([
+        'user_id' => auth()->id(),
+        'category_id' => Category::first()->id,
+        'amount' => $request->amount,
+        'description' => $request->description,
+        'date' => $request->date
+    ]);
+
+    return redirect()->route('expenses.index');
+}
 
     /**
      * Display the specified resource.
@@ -59,7 +78,9 @@ public function index()
      * Remove the specified resource from storage.
      */
     public function destroy(Expense $expense)
-    {
-        //
-    }
+{
+    $expense->delete();
+
+    return redirect()->route('expenses.index');
+}
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\FinancialGoalController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BudgetLimitController;
 
 
 Route::get('/', function () {
@@ -26,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('financial-goals', FinancialGoalController::class);
 
+    Route::resource('budget-limits', BudgetLimitController::class);
 });
 
 Route::middleware('auth')->group(function () {
