@@ -18,6 +18,10 @@
                 </div>
             </div>
 
+ <div class="flex items-center space-x-3 mr-4">
+    <a href="/lang/lv" class="text-sm text-gray-700">LV</a>
+    <a href="/lang/en" class="text-sm text-gray-700">EN</a>
+</div>           
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">

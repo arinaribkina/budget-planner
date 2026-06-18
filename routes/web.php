@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IncomeController;
@@ -11,6 +13,16 @@ use App\Http\Controllers\BudgetLimitController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/lang/{locale}', function ($locale) {
+
+    if (in_array($locale, ['lv', 'en'])) {
+        Session::put('locale', $locale);
+        App::setLocale($locale);
+    }
+
+    return redirect()->back();
 });
 
 Route::get('/dashboard', function () {
