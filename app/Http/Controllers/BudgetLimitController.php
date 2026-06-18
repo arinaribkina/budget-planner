@@ -14,8 +14,9 @@ class BudgetLimitController extends Controller
     public function index()
 {
     $limits = BudgetLimit::all();
+    $categories = Category::all();
 
-    return view('budget-limits.index', compact('limits'));
+    return view('budget-limits.index', compact('limits', 'categories'));
 }
 
     /**
@@ -39,11 +40,11 @@ class BudgetLimitController extends Controller
 
     }
 
-    BudgetLimit::create([
-        'user_id' => auth()->id(),
-        'category_id' => Category::first()->id,
-        'limit_amount' => $request->limit_amount
-    ]);
+   BudgetLimit::create([
+    'user_id' => auth()->id(),
+    'category_id' => $request->category_id,
+    'limit_amount' => $request->limit_amount
+]);
 
     return redirect()->route('budget-limits.index');
 }

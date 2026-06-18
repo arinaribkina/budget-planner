@@ -11,7 +11,14 @@
 
                 <p class="mb-6">
                     Welcome, {{ Auth::user()->name }}!
+                    <p>Role: {{ Auth::user()->role }}</p>
                 </p>
+                @if(Auth::user()->role == 'admin')
+    <div style="margin-top:20px; padding:10px; border:1px solid red;">
+        <h3>Admin Panel</h3>
+        <p>You have administrator permissions.</p>
+    </div>
+@endif
 
 <a href="{{ route('incomes.index') }}">
     <div class="border p-4 rounded">
@@ -40,6 +47,12 @@
     </div>
 </a>
 
+<a href="{{ route('budget-limits.index') }}">
+    <div style="border:1px solid lightgray; padding:15px; margin-top:10px;">
+        <h3>Budget Limits</h3>
+        <p>Set spending limits for categories.</p>
+    </div>
+</a>
                 </div>
 
             </div>

@@ -11,4 +11,9 @@ class BudgetLimit extends Model
         'category_id',
         'limit_amount'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
